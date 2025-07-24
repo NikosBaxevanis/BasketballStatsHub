@@ -1,0 +1,39 @@
+# === Node.js (server) ===
+basketball-stats-backend/node_modules/
+basketball-stats-backend/.env
+basketball-stats-backend/dist/
+basketball-stats-backend/.DS_Store
+basketball-stats-backend/npm-debug.log*
+basketball-stats-backend/yarn-debug.log*
+basketball-stats-backend/yarn-error.log*
+
+# === React (client) ===
+basketball-stats-frontend/node_modules/
+basketball-stats-frontend/.env
+basketball-stats-frontend/dist/
+basketball-stats-frontend/.DS_Store
+basketball-stats-frontend/npm-debug.log*
+basketball-stats-frontend/yarn-debug.log*
+basketball-stats-frontend/yarn-error.log*
+
+# === Common ===
+.env
+.env.local
+*.log
+.DS_Store
+*.tgz
+*.swp
+*.swo
+*.idea/
+.vscode/
+*.tsbuildinfo
+*.cache/
+coverage/
+*.env.*
+*.bak
+*.tmp
+
+# === OS and Editor-specific ===
+Thumbs.db
+ehthumbs.db
+*.iml

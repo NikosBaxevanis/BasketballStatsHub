@@ -8,15 +8,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const playerRoutes = require("./routes/playerRoutes");
-app.use("/api/players", playerRoutes);
-
-const authRoutes = require("./routes/authRoutes");
-app.use("/api/auth", authRoutes);
-
-const gameRoutes = require("./routes/gameRoutes");
-app.use("/api/games", gameRoutes);
-
 
 
 // DB connection
@@ -31,6 +22,16 @@ mongoose.connect(process.env.MONGO_URI, {
 app.get("/", (req, res) => {
   res.send("Basketball Stats API running");
 });
+
+const playerRoutes = require("./routes/playerRoutes");
+app.use("/api/players", playerRoutes);
+
+const authRoutes = require("./routes/authRoutes");
+app.use("/api/auth", authRoutes);
+
+const gameRoutes = require("./routes/gameRoutes");
+app.use("/api/games", gameRoutes);
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
