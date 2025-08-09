@@ -8,15 +8,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
-
 // DB connection
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log("MongoDB connected"))
-.catch(err => console.log("DB connection error:", err));
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.log("DB connection error:", err));
 
 // Routes placeholder
 app.get("/", (req, res) => {
@@ -31,7 +27,6 @@ app.use("/api/auth", authRoutes);
 
 const gameRoutes = require("./routes/gameRoutes");
 app.use("/api/games", gameRoutes);
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -2,54 +2,70 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../UserContext";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "../api/endpoints/users";
+import { LoginResponseType } from "../types";
 
 const Login: React.FC = () => {
   const { setUser } = useContext(UserContext);
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post("/api/auth/login", { email, password });
-      setUser(res.data.user);
-      localStorage.setItem("token", res.data.token);
+  const loginMutation = useMutation({
+    mutationFn: loginUser,
+    onSuccess: (data: LoginResponseType) => {
+      localStorage.setItem("token", data.token);
+      setUser(data.user);
       navigate("/dashboard");
-    } catch (err) {
-      setError("Invalid email or password");
+    },
+    onError: (error: any) => {
+      setError(
+        error.response?.data?.message || "Login failed. Please try again."
+      );
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!username || !password) {
+      setError("Please fill all fields");
+      return;
     }
+    loginMutation.mutate({ username, password });
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 border rounded">
-      <h1 className="text-2xl mb-4">Login</h1>
-      {error && <div className="mb-4 text-red-600">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="border p-2 w-full mb-3"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="border p-2 w-full mb-3"
-          required
-        />
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          Login
-        </button>
-      </form>
+    <div className="w-full h-screen flex justify-center items-center bg-slate-50">
+      <div className="max-w-md mx-auto mt-10 p-6 shadow-lg border border-gray-50 rounded-md bg-white">
+        <h1 className="text-2xl mb-4 font-semibold">Login</h1>
+        {error && <div className="mb-4 text-red-600">{error}</div>}
+        <form onSubmit={handleSubmit}>
+          <input
+            type="username"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="border border-gray-50 rounded-md p-2 w-full mb-3 bg-gray-100"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="border border-gray-50 rounded-md p-2 w-full mb-3 bg-gray-100"
+            required
+          />
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

@@ -1,3 +1,24 @@
+export type LoginRequestType = {
+  username: string;
+  password: string;
+};
+
+export type LoginResponseType = {
+  user: User;
+  token: string;
+};
+
+export type RegisterRequestType = {
+  username: string;
+  password: string;
+  role: "admin" | "user" | "player";
+};
+
+export type RegisterResponseType = {
+  user: User;
+  token: string;
+};
+
 export interface User {
   id: string;
   email: string;
