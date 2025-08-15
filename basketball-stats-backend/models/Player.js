@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// 📌 Schema για τα στατιστικά κάθε αγώνα
 const statSchema = new mongoose.Schema({
   gameDate: { type: Date, required: true },
   opponent: { type: String },
@@ -10,9 +11,11 @@ const statSchema = new mongoose.Schema({
   steals: Number
 }, { _id: false });
 
+// 📌 Schema για τον παίκτη
 const playerSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  team: { type: String },
+  // ✅ Σύνδεση με ομάδα (ObjectId ref)
+  team: { type: mongoose.Schema.Types.ObjectId, ref: "Team" },
   position: { type: String },
   height: Number,
   weight: Number,

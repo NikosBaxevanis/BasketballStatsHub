@@ -1,59 +1,105 @@
 const express = require("express");
-const router = express.Router();
 const Player = require("../models/Player");
-const { verifyToken, isAdmin } = require("../middleware/authMiddleware");
+const Team = require("../models/Team");
+const router = express.Router();
 
-// Get all players (ελεύθερο σε όλους)
+// 📌 Δημιουργία παίκτη + σύνδεση με ομάδα
+router.post("/", async (req, res) => {
+  try {
+    const { name, teamId, position, height, weight, stats } = req.body;
+
+    // Δημιουργούμε τον παίκτη
+    const player = new Player({
+      name,
+      team: teamId || null,
+      position,
+      height,
+      weight,
+      stats: stats || []
+    });
+
+    await player.save();
+
+    // Αν δόθηκε teamId, προσθέτουμε τον παίκτη στην ομάδα
+    if (teamId) {
+      await Team.findByIdAndUpdate(teamId, {
+        $push: { players: player._id }
+      });
+    }
+
+    res.status(201).json(player);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// 📌 Λίστα όλων των παικτών
 router.get("/", async (req, res) => {
   try {
-    const players = await Player.find();
+    const players = await Player.find().populate("team");
     res.json(players);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
-// Get player by ID (ελεύθερο σε όλους)
+// 📌 Εμφάνιση παίκτη με ID
 router.get("/:id", async (req, res) => {
   try {
-    const player = await Player.findById(req.params.id);
+    const player = await Player.findById(req.params.id).populate("team");
     if (!player) return res.status(404).json({ message: "Player not found" });
     res.json(player);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
-// Create player (προστατευμένο - μόνο admin)
-router.post("/", verifyToken, isAdmin, async (req, res) => {
+// 📌 Ενημέρωση παίκτη
+router.put("/:id", async (req, res) => {
   try {
-    const newPlayer = new Player(req.body);
-    const saved = await newPlayer.save();
-    res.status(201).json(saved);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+    const { teamId, ...updateData } = req.body;
+
+    const player = await Player.findById(req.params.id);
+    if (!player) return res.status(404).json({ message: "Player not found" });
+
+    // Αν αλλάζει ομάδα, αφαιρούμε από την παλιά και βάζουμε στη νέα
+    if (teamId && teamId !== player.team?.toString()) {
+      if (player.team) {
+        await Team.findByIdAndUpdate(player.team, {
+          $pull: { players: player._id }
+        });
+      }
+      await Team.findByIdAndUpdate(teamId, {
+        $push: { players: player._id }
+      });
+      player.team = teamId;
+    }
+
+    Object.assign(player, updateData);
+    await player.save();
+
+    res.json(player);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 });
 
-// Update player (προστατευμένο - μόνο admin)
-router.put("/:id", verifyToken, isAdmin, async (req, res) => {
+// 📌 Διαγραφή παίκτη
+router.delete("/:id", async (req, res) => {
   try {
-    const updated = await Player.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updated) return res.status(404).json({ message: "Player not found" });
-    res.json(updated);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
+    const player = await Player.findByIdAndDelete(req.params.id);
+    if (!player) return res.status(404).json({ message: "Player not found" });
 
-// Delete player (προστατευμένο - μόνο admin)
-router.delete("/:id", verifyToken, isAdmin, async (req, res) => {
-  try {
-    const deleted = await Player.findByIdAndDelete(req.params.id);
-    if (!deleted) return res.status(404).json({ message: "Player not found" });
+    // Αν ο παίκτης είχε ομάδα, τον αφαιρούμε
+    if (player.team) {
+      await Team.findByIdAndUpdate(player.team, {
+        $pull: { players: player._id }
+      });
+    }
+
     res.json({ message: "Player deleted" });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
