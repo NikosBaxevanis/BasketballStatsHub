@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../UserContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../api/endpoints/users";
 import { LoginResponseType } from "../types";
@@ -65,6 +65,19 @@ const Login: React.FC = () => {
             Login
           </button>
         </form>
+
+        <div className="my-4">
+          <hr className="border border-gray-100" />
+          <div className="flex gap-1 py-2">
+            Don't you have an account?
+            <Link
+              className="text-blue-600 hover:text-blue-700"
+              to={"/register"}
+            >
+              Register now!
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

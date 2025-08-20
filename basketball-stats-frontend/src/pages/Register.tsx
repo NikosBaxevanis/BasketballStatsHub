@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { registerUser } from "../api/endpoints/users";
 import { RegisterResponseType } from "../types";
@@ -35,48 +35,60 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 border rounded">
-      <h1 className="text-2xl mb-4">Register</h1>
-      {error && <div className="mb-4 text-red-600">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="border p-2 w-full mb-3"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="border p-2 w-full mb-3"
-          required
-        />
-        <div className="role-selection">
-          <label>Role:</label>
-          <select
-            value={role}
-            onChange={(e) =>
-              setRole(e.target.value as "user" | "player" | "admin")
-            }
+    <div className="w-full h-screen flex justify-center items-center bg-slate-50">
+      <div className="max-w-md mx-auto mt-10 p-6 shadow-lg border border-gray-50 rounded-md bg-white">
+        <h1 className="text-2xl mb-4 font-semibold">Register</h1>
+        {error && <div className="mb-4 text-red-600">{error}</div>}
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="border border-gray-50 rounded-md p-2 w-full mb-3 bg-gray-100"
             required
-          >
-            <option value="user">User</option>
-            <option value="player">Player</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div>
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="border border-gray-50 rounded-md p-2 w-full mb-3 bg-gray-100"
+            required
+          />
+          <div className="role-selection">
+            <select
+              className="border border-gray-50 rounded-md p-2 w-full mb-3 bg-gray-100"
+              value={role}
+              onChange={(e) =>
+                setRole(e.target.value as "user" | "player" | "admin")
+              }
+              required
+            >
+              <option value="user">User</option>
+              <option value="player">Player</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
 
-        <button
-          type="submit"
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-        >
-          Register
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+          >
+            Register
+          </button>
+        </form>
+
+        <div className="my-4">
+          <hr className="border border-gray-100" />
+          <div className="flex gap-1 py-2">
+            Already have an account?
+            <Link className="text-blue-600 hover:text-blue-700" to={"/login"}>
+              Sign in
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

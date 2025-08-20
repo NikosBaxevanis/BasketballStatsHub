@@ -14,7 +14,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const PrivateRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
   const { user } = useContext(UserContext);
-  return user ? children : <Navigate to="/login" replace />;
+  return user ? (
+    <div className="bg-slate-50"> {children} </div>
+  ) : (
+    <Navigate to="/login" replace />
+  );
 };
 
 const queryClient = new QueryClient();

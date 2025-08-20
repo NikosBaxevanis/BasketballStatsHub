@@ -16,16 +16,15 @@ export const UserContext = createContext<UserContextType>({
   setUser: () => {},
 });
 
-export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+export const UserProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
+  console.log(localStorage.getItem("user"));
 
-  // Προσθήκη για φόρτωμα user από localStorage (προαιρετικό)
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+  const storedUser = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user") ?? "")
+    : null;
+  const [user, setUser] = useState<User | null>(storedUser);
 
   useEffect(() => {
     if (user) {

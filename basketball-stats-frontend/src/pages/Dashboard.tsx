@@ -14,18 +14,18 @@ const Dashboard: React.FC = () => {
   const [newPlayer, setNewPlayer] = useState({ name: "", team: "" });
   const canEdit = user?.role === "admin";
 
-  useEffect(() => {
-    const fetchPlayers = async () => {
-      try {
-        const res = await axios.get<Player[]>("/api/players");
-        setPlayers(res.data);
-      } catch (err) {
-        console.error("Error fetching players", err);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchPlayers = async () => {
+  //     try {
+  //       const res = await axios.get<Player[]>("/api/players");
+  //       setPlayers(res.data);
+  //     } catch (err) {
+  //       console.error("Error fetching players", err);
+  //     }
+  //   };
 
-    fetchPlayers();
-  }, []);
+  //   fetchPlayers();
+  // }, []);
 
   const handleAddPlayer = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,17 +39,86 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
+    <div>
+      <div className="py-8 p-4 bg-white rounded-xl m-4 flex flex-col items-center justify-center gap-4 shadow-[0_1px_3px_rgba(0,0,0,0.1)] border border-slate-200">
+        <div className="text-center">
+          <h1 className="text-slate-900 text-4xl font-bold mb-2">
+            🏀 Basketball Stats Hub
+          </h1>
+          <p className="text-slate-500 text-lg">
+            Your Ultimate Basketball Statistics Dashboard
+          </p>
+        </div>
+        <nav className="flex justify-center gap-6 flex-wrap">
+          <button className="nav-btn active">Home</button>
+          <button className="nav-btn">Teams</button>
+          <button className="nav-btn">Players</button>
+          <button className="nav-btn">League Stats</button>
+        </nav>
+      </div>
+      <div className="py-8 p-4 bg-white rounded-xl m-4 flex flex-col items-center justify-center gap-[80px] shadow-[0_1px_3px_rgba(0,0,0,0.1)] border border-slate-200">
+        <div className="text-center">
+          <h2 className="text-slate-900 text-2xl font-bold mb-2">
+            Welcome to Basketball Stats Hub
+          </h2>
+          <p className="text-slate-500 text-lg">
+            Track teams, players, and comprehensive basketball statistics all in
+            one place
+          </p>
+        </div>
 
-      {canEdit && (
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5 w-full">
+          <div className="stat-card">
+            <h3>Total Teams</h3>
+            <div className="number">30</div>
+          </div>
+          <div className="stat-card">
+            <h3>Active Players</h3>
+            <div className="number">450</div>
+          </div>
+          <div className="stat-card">
+            <h3>Games Played</h3>
+            <div className="number">1,230</div>
+          </div>
+          <div className="stat-card">
+            <h3>Season Average PPG</h3>
+            <div className="number">112.4</div>
+          </div>
+        </div>
+        <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-5 text-center">
+          <div className="feature-card">
+            <div className="feature-icon">🏆</div>
+            <h3>Team Management</h3>
+            <p>
+              Comprehensive team statistics, records, and performance metrics
+            </p>
+          </div>
+          <div className="feature-card">
+            <div className="feature-icon">👤</div>
+            <h3>Player Profiles</h3>
+            <p>
+              Detailed player statistics, career highlights, and performance
+              data
+            </p>
+          </div>
+          <div className="feature-card">
+            <div className="feature-icon">📊</div>
+            <h3>Advanced Analytics</h3>
+            <p>In-depth statistical analysis and performance comparisons</p>
+          </div>
+        </div>
+      </div>
+
+      {/* {canEdit && (
         <form onSubmit={handleAddPlayer} className="mb-6">
           <h2 className="text-lg font-semibold mb-2">Add Player</h2>
           <input
             type="text"
             placeholder="Name"
             value={newPlayer.name}
-            onChange={(e) => setNewPlayer({ ...newPlayer, name: e.target.value })}
+            onChange={(e) =>
+              setNewPlayer({ ...newPlayer, name: e.target.value })
+            }
             className="border px-2 py-1 mr-2"
             required
           />
@@ -57,7 +126,9 @@ const Dashboard: React.FC = () => {
             type="text"
             placeholder="Team"
             value={newPlayer.team}
-            onChange={(e) => setNewPlayer({ ...newPlayer, team: e.target.value })}
+            onChange={(e) =>
+              setNewPlayer({ ...newPlayer, team: e.target.value })
+            }
             className="border px-2 py-1 mr-2"
             required
           />
@@ -68,15 +139,15 @@ const Dashboard: React.FC = () => {
             Add
           </button>
         </form>
-      )}
+      )} */}
 
-      <ul>
+      {/* <ul>
         {players.map((player) => (
           <li key={player._id} className="mb-2 border-b pb-1">
             <strong>{player.name}</strong> - <em>{player.team}</em>
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };
