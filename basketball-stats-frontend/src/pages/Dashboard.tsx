@@ -1,6 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../UserContext";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { DashboardStats } from "../types";
+import { fetchDashboardStats } from "../api/endpoints/dashboard";
 
 interface Player {
   _id: string;
@@ -14,18 +17,18 @@ const Dashboard: React.FC = () => {
   const [newPlayer, setNewPlayer] = useState({ name: "", team: "" });
   const canEdit = user?.role === "admin";
 
-  // useEffect(() => {
-  //   const fetchPlayers = async () => {
-  //     try {
-  //       const res = await axios.get<Player[]>("/api/players");
-  //       setPlayers(res.data);
-  //     } catch (err) {
-  //       console.error("Error fetching players", err);
-  //     }
-  //   };
+  const { data, isLoading, isError, error } = useQuery<DashboardStats>({
+    queryKey: ["dashboardStats"],
+    queryFn: fetchDashboardStats,
+    staleTime: 1000 * 60, // 1 minute cache
+  });
 
-  //   fetchPlayers();
-  // }, []);
+  if (isLoading) return <p>Loading dashboard...</p>;
+  if (isError)
+    return <p>{(error as any)?.message || "Failed to load dashboard"}</p>;
+
+  console.log(data);
+  const { activePlayers, seasonAvgPPG, gamesPlayed, totalTeams } = data ?? {};
 
   const handleAddPlayer = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,19 +73,19 @@ const Dashboard: React.FC = () => {
         <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5 w-full">
           <div className="stat-card">
             <h3>Total Teams</h3>
-            <div className="number">30</div>
+            <div className="number">{totalTeams}</div>
           </div>
           <div className="stat-card">
             <h3>Active Players</h3>
-            <div className="number">450</div>
+            <div className="number">{activePlayers}</div>
           </div>
           <div className="stat-card">
             <h3>Games Played</h3>
-            <div className="number">1,230</div>
+            <div className="number">{gamesPlayed}</div>
           </div>
           <div className="stat-card">
             <h3>Season Average PPG</h3>
-            <div className="number">112.4</div>
+            <div className="number">{seasonAvgPPG}</div>
           </div>
         </div>
         <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-5 text-center">

@@ -39,3 +39,10 @@ export interface Match {
   scoreA: number;
   scoreB: number;
 }
+
+export interface DashboardStats {
+  totalTeams: number;
+  activePlayers: number;
+  gamesPlayed: number;
+  seasonAvgPPG: number;
+}
