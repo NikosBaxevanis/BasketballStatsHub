@@ -6,7 +6,11 @@ const teamSchema = new mongoose.Schema({
   city: { type: String, required: true },
   founded: Number,
   championships: Number,
-  players: [{ type: mongoose.Schema.Types.ObjectId, ref: "Player" }]
+  wins: { type: Number, default: 0 },
+  defeats: { type: Number, default: 0 },
+  homeWins: { type: Number, default: 0 },
+  homeDefeats: { type: Number, default: 0 },
+  players: [{ type: mongoose.Schema.Types.ObjectId, ref: "Player" }],
 });
 
 module.exports = mongoose.model("Team", teamSchema);

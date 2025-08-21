@@ -1,22 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../UserContext";
-import axios from "axios";
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { DashboardStats } from "../types";
 import { fetchDashboardStats } from "../api/endpoints/dashboard";
-
-interface Player {
-  _id: string;
-  name: string;
-  team: string;
-}
+import { useNavigate } from "react-router-dom";
 
 const Dashboard: React.FC = () => {
-  const { user } = useContext(UserContext);
-  const [players, setPlayers] = useState<Player[]>([]);
-  const [newPlayer, setNewPlayer] = useState({ name: "", team: "" });
-  const canEdit = user?.role === "admin";
-
+  const navigate = useNavigate();
   const { data, isLoading, isError, error } = useQuery<DashboardStats>({
     queryKey: ["dashboardStats"],
     queryFn: fetchDashboardStats,
@@ -27,23 +16,11 @@ const Dashboard: React.FC = () => {
   if (isError)
     return <p>{(error as any)?.message || "Failed to load dashboard"}</p>;
 
-  console.log(data);
   const { activePlayers, seasonAvgPPG, gamesPlayed, totalTeams } = data ?? {};
-
-  const handleAddPlayer = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post<Player>("/api/players", newPlayer);
-      setPlayers((prev) => [...prev, res.data]);
-      setNewPlayer({ name: "", team: "" });
-    } catch (err) {
-      console.error("Error adding player", err);
-    }
-  };
 
   return (
     <div>
-      <div className="py-8 p-4 bg-white rounded-xl m-4 flex flex-col items-center justify-center gap-4 shadow-[0_1px_3px_rgba(0,0,0,0.1)] border border-slate-200">
+      <div className="py-8 p-4 bg-white rounded-xl mx-4 mb-4 flex flex-col items-center justify-center gap-4 shadow-[0_1px_3px_rgba(0,0,0,0.1)] border border-slate-200">
         <div className="text-center">
           <h1 className="text-slate-900 text-4xl font-bold mb-2">
             🏀 Basketball Stats Hub
@@ -53,8 +30,12 @@ const Dashboard: React.FC = () => {
           </p>
         </div>
         <nav className="flex justify-center gap-6 flex-wrap">
-          <button className="nav-btn active">Home</button>
-          <button className="nav-btn">Teams</button>
+          <button className="nav-btn active" onClick={() => navigate("/")}>
+            Home
+          </button>
+          <button className="nav-btn" onClick={() => navigate("/teams")}>
+            Teams
+          </button>
           <button className="nav-btn">Players</button>
           <button className="nav-btn">League Stats</button>
         </nav>
@@ -111,46 +92,6 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* {canEdit && (
-        <form onSubmit={handleAddPlayer} className="mb-6">
-          <h2 className="text-lg font-semibold mb-2">Add Player</h2>
-          <input
-            type="text"
-            placeholder="Name"
-            value={newPlayer.name}
-            onChange={(e) =>
-              setNewPlayer({ ...newPlayer, name: e.target.value })
-            }
-            className="border px-2 py-1 mr-2"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Team"
-            value={newPlayer.team}
-            onChange={(e) =>
-              setNewPlayer({ ...newPlayer, team: e.target.value })
-            }
-            className="border px-2 py-1 mr-2"
-            required
-          />
-          <button
-            type="submit"
-            className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
-          >
-            Add
-          </button>
-        </form>
-      )} */}
-
-      {/* <ul>
-        {players.map((player) => (
-          <li key={player._id} className="mb-2 border-b pb-1">
-            <strong>{player.name}</strong> - <em>{player.team}</em>
-          </li>
-        ))}
-      </ul> */}
     </div>
   );
 };

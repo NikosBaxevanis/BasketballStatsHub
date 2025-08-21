@@ -46,3 +46,30 @@ export interface DashboardStats {
   gamesPlayed: number;
   seasonAvgPPG: number;
 }
+
+export type Team = {
+  id: string;
+  name: string;
+  city: string;
+  founded: number;
+  championships: number;
+  wins: number;
+  defeats: number;
+  homeWins: number;
+  homeDefeats: number;
+};
+
+export type TeamsPayloadType = {
+  search: string;
+  page: number;
+  limit: number;
+  sort: string;
+  order: string;
+};
+
+export type TeamsResponseType = {
+  data: Team[];
+  total: number;
+  page: number;
+  pages: number;
+};

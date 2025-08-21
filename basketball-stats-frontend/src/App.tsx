@@ -11,11 +11,12 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Teams from "./pages/Teams";
 
 const PrivateRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
   const { user } = useContext(UserContext);
   return user ? (
-    <div className="bg-slate-50"> {children} </div>
+    <div className="bg-slate-50 py-8"> {children} </div>
   ) : (
     <Navigate to="/login" replace />
   );
@@ -34,6 +35,14 @@ const App: React.FC = () => {
               element={
                 <PrivateRoute>
                   <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/teams"
+              element={
+                <PrivateRoute>
+                  <Teams />
                 </PrivateRoute>
               }
             />
