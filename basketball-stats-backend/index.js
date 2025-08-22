@@ -106,14 +106,32 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 // ];
 
 // const samplePlayers = [
-//   // ... other teams' players
+//   // Panathinaikos
 //   {
 //     name: "Kendrick Nunn",
 //     teamName: "Panathinaikos",
 //     position: "Guard",
 //     height: 1.91,
 //     weight: 85,
-//     stats: [
+
+//     points: 16,
+//     assists: 9.5,
+//     rebounds: 3.5,
+//     steals: 1.5,
+//     blocks: 0,
+//     offensiveRebounds: 0.5,
+//     defensiveRebounds: 3,
+//     turnovers: 2,
+//     personalFouls: 2,
+//     minutesPlayed: 30,
+//     fieldGoalsMade: 6,
+//     fieldGoalsAttempted: 13,
+//     threePointsMade: 2,
+//     threePointsAttempted: 5,
+//     freeThrowsMade: 2,
+//     freeThrowsAttempted: 3,
+
+//     gameStats: [
 //       {
 //         gameDate: new Date("2025-03-14"),
 //         opponent: "FC Barcelona",
@@ -138,7 +156,25 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //     position: "Center",
 //     height: 2.06,
 //     weight: 115,
-//     stats: [
+
+//     points: 20,
+//     assists: 3.5,
+//     rebounds: 5.5,
+//     steals: 0.5,
+//     blocks: 1,
+//     offensiveRebounds: 2,
+//     defensiveRebounds: 3.5,
+//     turnovers: 2,
+//     personalFouls: 3,
+//     minutesPlayed: 28,
+//     fieldGoalsMade: 8,
+//     fieldGoalsAttempted: 13,
+//     threePointsMade: 0,
+//     threePointsAttempted: 0,
+//     freeThrowsMade: 4,
+//     freeThrowsAttempted: 6,
+
+//     gameStats: [
 //       {
 //         gameDate: new Date("2025-02-28"),
 //         opponent: "Olympiacos",
@@ -161,7 +197,25 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //     position: "Forward",
 //     height: 2.05,
 //     weight: 100,
-//     stats: [
+
+//     points: 11.5,
+//     assists: 8.5,
+//     rebounds: 4.5,
+//     steals: 1,
+//     blocks: 0.5,
+//     offensiveRebounds: 1,
+//     defensiveRebounds: 3.5,
+//     turnovers: 2,
+//     personalFouls: 2,
+//     minutesPlayed: 27,
+//     fieldGoalsMade: 5,
+//     fieldGoalsAttempted: 11,
+//     threePointsMade: 1,
+//     threePointsAttempted: 3,
+//     freeThrowsMade: 1.5,
+//     freeThrowsAttempted: 2,
+
+//     gameStats: [
 //       {
 //         gameDate: new Date("2025-02-22"),
 //         opponent: "Anadolu Efes",
@@ -187,7 +241,25 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //     position: "Guard",
 //     height: 181,
 //     weight: 84,
-//     stats: [
+
+//     points: 16,
+//     assists: 9.5,
+//     rebounds: 3.5,
+//     steals: 1.5,
+//     blocks: 0,
+//     offensiveRebounds: 0.5,
+//     defensiveRebounds: 3,
+//     turnovers: 2,
+//     personalFouls: 2,
+//     minutesPlayed: 29,
+//     fieldGoalsMade: 6,
+//     fieldGoalsAttempted: 12,
+//     threePointsMade: 2,
+//     threePointsAttempted: 5,
+//     freeThrowsMade: 2,
+//     freeThrowsAttempted: 3,
+
+//     gameStats: [
 //       {
 //         gameDate: new Date("2025-03-14"),
 //         opponent: "FC Barcelona",
@@ -212,7 +284,25 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //     position: "Guard-Forward",
 //     height: 205,
 //     weight: 95,
-//     stats: [
+
+//     points: 20.5,
+//     assists: 3.5,
+//     rebounds: 5.5,
+//     steals: 0.5,
+//     blocks: 0.5,
+//     offensiveRebounds: 1,
+//     defensiveRebounds: 4.5,
+//     turnovers: 2,
+//     personalFouls: 3,
+//     minutesPlayed: 28,
+//     fieldGoalsMade: 7.5,
+//     fieldGoalsAttempted: 14,
+//     threePointsMade: 2,
+//     threePointsAttempted: 6,
+//     freeThrowsMade: 3,
+//     freeThrowsAttempted: 4,
+
+//     gameStats: [
 //       {
 //         gameDate: new Date("2025-02-28"),
 //         opponent: "Olympiacos",
@@ -235,7 +325,25 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //     position: "Center",
 //     height: 220,
 //     weight: 120,
-//     stats: [
+
+//     points: 14,
+//     assists: 1,
+//     rebounds: 13,
+//     steals: 0.5,
+//     blocks: 2.5,
+//     offensiveRebounds: 4,
+//     defensiveRebounds: 9,
+//     turnovers: 2,
+//     personalFouls: 3,
+//     minutesPlayed: 26,
+//     fieldGoalsMade: 5.5,
+//     fieldGoalsAttempted: 9,
+//     threePointsMade: 0,
+//     threePointsAttempted: 0,
+//     freeThrowsMade: 3,
+//     freeThrowsAttempted: 5,
+
+//     gameStats: [
 //       {
 //         gameDate: new Date("2025-02-20"),
 //         opponent: "Fenerbahçe",
@@ -260,7 +368,25 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //     position: "Guard",
 //     height: 190,
 //     weight: 82,
-//     stats: [
+
+//     points: 18,
+//     assists: 6.5,
+//     rebounds: 2.5,
+//     steals: 1,
+//     blocks: 0,
+//     offensiveRebounds: 0.5,
+//     defensiveRebounds: 2,
+//     turnovers: 2,
+//     personalFouls: 2,
+//     minutesPlayed: 28,
+//     fieldGoalsMade: 6.5,
+//     fieldGoalsAttempted: 13,
+//     threePointsMade: 2.5,
+//     threePointsAttempted: 7,
+//     freeThrowsMade: 2,
+//     freeThrowsAttempted: 3,
+
+//     gameStats: [
 //       {
 //         gameDate: new Date("2025-02-18"),
 //         opponent: "Real Madrid",
@@ -283,7 +409,25 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //     position: "Guard",
 //     height: 201,
 //     weight: 95,
-//     stats: [
+
+//     points: 12,
+//     assists: 8.5,
+//     rebounds: 5.5,
+//     steals: 1,
+//     blocks: 0.5,
+//     offensiveRebounds: 1,
+//     defensiveRebounds: 4.5,
+//     turnovers: 2,
+//     personalFouls: 3,
+//     minutesPlayed: 29,
+//     fieldGoalsMade: 5,
+//     fieldGoalsAttempted: 11,
+//     threePointsMade: 1,
+//     threePointsAttempted: 3,
+//     freeThrowsMade: 1,
+//     freeThrowsAttempted: 2,
+
+//     gameStats: [
 //       {
 //         gameDate: new Date("2025-01-31"),
 //         opponent: "Olympiacos",
@@ -306,7 +450,25 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //     position: "Forward-Center",
 //     height: 213,
 //     weight: 109,
-//     stats: [
+
+//     points: 13.5,
+//     assists: 1.5,
+//     rebounds: 9.5,
+//     steals: 0.5,
+//     blocks: 1.5,
+//     offensiveRebounds: 2,
+//     defensiveRebounds: 7.5,
+//     turnovers: 2,
+//     personalFouls: 3,
+//     minutesPlayed: 27,
+//     fieldGoalsMade: 5.5,
+//     fieldGoalsAttempted: 10,
+//     threePointsMade: 0,
+//     threePointsAttempted: 1,
+//     freeThrowsMade: 2.5,
+//     freeThrowsAttempted: 4,
+
+//     gameStats: [
 //       {
 //         gameDate: new Date("2025-03-05"),
 //         opponent: "Fenerbahçe",
@@ -331,7 +493,25 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //     position: "Guard",
 //     height: 193,
 //     weight: 91,
-//     stats: [
+
+//     points: 11.5,
+//     assists: 8.5,
+//     rebounds: 4.5,
+//     steals: 1,
+//     blocks: 0,
+//     offensiveRebounds: 1,
+//     defensiveRebounds: 3.5,
+//     turnovers: 2,
+//     personalFouls: 2,
+//     minutesPlayed: 28,
+//     fieldGoalsMade: 4.5,
+//     fieldGoalsAttempted: 10,
+//     threePointsMade: 1,
+//     threePointsAttempted: 4,
+//     freeThrowsMade: 1.5,
+//     freeThrowsAttempted: 2,
+
+//     gameStats: [
 //       {
 //         gameDate: new Date("2025-02-22"),
 //         opponent: "Anadolu Efes",
@@ -355,7 +535,25 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //     position: "Center",
 //     height: 218,
 //     weight: 122,
-//     stats: [
+
+//     points: 10.5,
+//     assists: 1,
+//     rebounds: 12,
+//     steals: 0.5,
+//     blocks: 2.5,
+//     offensiveRebounds: 3,
+//     defensiveRebounds: 9,
+//     turnovers: 2,
+//     personalFouls: 3,
+//     minutesPlayed: 27,
+//     fieldGoalsMade: 4,
+//     fieldGoalsAttempted: 7,
+//     threePointsMade: 0,
+//     threePointsAttempted: 0,
+//     freeThrowsMade: 2,
+//     freeThrowsAttempted: 3,
+
+//     gameStats: [
 //       {
 //         gameDate: new Date("2025-02-10"),
 //         opponent: "Fenerbahçe",
@@ -378,7 +576,25 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //     position: "Forward",
 //     height: 204,
 //     weight: 100,
-//     stats: [
+
+//     points: 13,
+//     assists: 2.5,
+//     rebounds: 6.5,
+//     steals: 1,
+//     blocks: 0.5,
+//     offensiveRebounds: 1,
+//     defensiveRebounds: 5.5,
+//     turnovers: 2,
+//     personalFouls: 3,
+//     minutesPlayed: 27,
+//     fieldGoalsMade: 5,
+//     fieldGoalsAttempted: 11,
+//     threePointsMade: 1.5,
+//     threePointsAttempted: 4,
+//     freeThrowsMade: 2,
+//     freeThrowsAttempted: 3,
+
+//     gameStats: [
 //       {
 //         gameDate: new Date("2025-02-16"),
 //         opponent: "FC Barcelona",
@@ -403,7 +619,25 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //     position: "Guard",
 //     height: 180,
 //     weight: 79,
-//     stats: [
+
+//     points: 21.5,
+//     assists: 6.5,
+//     rebounds: 3.5,
+//     steals: 1,
+//     blocks: 0,
+//     offensiveRebounds: 0.5,
+//     defensiveRebounds: 3,
+//     turnovers: 2,
+//     personalFouls: 2,
+//     minutesPlayed: 31,
+//     fieldGoalsMade: 7.5,
+//     fieldGoalsAttempted: 15,
+//     threePointsMade: 3,
+//     threePointsAttempted: 7,
+//     freeThrowsMade: 3.5,
+//     freeThrowsAttempted: 4,
+
+//     gameStats: [
 //       {
 //         gameDate: new Date("2025-02-12"),
 //         opponent: "Real Madrid",
@@ -427,7 +661,25 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //     position: "Guard",
 //     height: 188,
 //     weight: 84,
-//     stats: [
+
+//     points: 16,
+//     assists: 3.5,
+//     rebounds: 3.5,
+//     steals: 0.5,
+//     blocks: 0,
+//     offensiveRebounds: 0.5,
+//     defensiveRebounds: 3,
+//     turnovers: 1.5,
+//     personalFouls: 2,
+//     minutesPlayed: 26,
+//     fieldGoalsMade: 6,
+//     fieldGoalsAttempted: 11,
+//     threePointsMade: 2,
+//     threePointsAttempted: 6,
+//     freeThrowsMade: 2,
+//     freeThrowsAttempted: 3,
+
+//     gameStats: [
 //       {
 //         gameDate: new Date("2025-01-30"),
 //         opponent: "Fenerbahçe",
@@ -450,7 +702,25 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //     position: "Center",
 //     height: 211,
 //     weight: 120,
-//     stats: [
+
+//     points: 11,
+//     assists: 1,
+//     rebounds: 9.5,
+//     steals: 0.5,
+//     blocks: 1.5,
+//     offensiveRebounds: 3,
+//     defensiveRebounds: 6.5,
+//     turnovers: 2,
+//     personalFouls: 3,
+//     minutesPlayed: 26,
+//     fieldGoalsMade: 4.5,
+//     fieldGoalsAttempted: 8,
+//     threePointsMade: 0,
+//     threePointsAttempted: 0,
+//     freeThrowsMade: 2,
+//     freeThrowsAttempted: 3,
+
+//     gameStats: [
 //       {
 //         gameDate: new Date("2025-02-07"),
 //         opponent: "Olympiacos",
@@ -467,15 +737,27 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //       },
 //     ],
 //   },
-
-//   // Fenerbahçe
 //   {
 //     name: "Marko Gudurić",
 //     teamName: "Fenerbahçe",
 //     position: "Guard-Forward",
 //     height: 196,
 //     weight: 95,
-//     stats: [
+//     points: 18,
+//     assists: 6,
+//     rebounds: 5,
+//     steals: 1,
+//     blocks: 0,
+//     turnovers: 2,
+//     personalFouls: 2,
+//     minutesPlayed: 28,
+//     fieldGoalsMade: 7,
+//     fieldGoalsAttempted: 13,
+//     threePointsMade: 2,
+//     threePointsAttempted: 5,
+//     freeThrowsMade: 2,
+//     freeThrowsAttempted: 3,
+//     gameStats: [
 //       {
 //         gameDate: new Date("2025-02-05"),
 //         opponent: "Anadolu Efes",
@@ -498,7 +780,21 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //     position: "Guard",
 //     height: 188,
 //     weight: 86,
-//     stats: [
+//     points: 17,
+//     assists: 8,
+//     rebounds: 3,
+//     steals: 1,
+//     blocks: 0,
+//     turnovers: 2,
+//     personalFouls: 2,
+//     minutesPlayed: 30,
+//     fieldGoalsMade: 6,
+//     fieldGoalsAttempted: 14,
+//     threePointsMade: 3,
+//     threePointsAttempted: 8,
+//     freeThrowsMade: 2,
+//     freeThrowsAttempted: 3,
+//     gameStats: [
 //       {
 //         gameDate: new Date("2025-02-19"),
 //         opponent: "FC Barcelona",
@@ -521,7 +817,21 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //     position: "Forward",
 //     height: 203,
 //     weight: 104,
-//     stats: [
+//     points: 20,
+//     assists: 3,
+//     rebounds: 8,
+//     steals: 1,
+//     blocks: 0,
+//     turnovers: 2,
+//     personalFouls: 2,
+//     minutesPlayed: 31,
+//     fieldGoalsMade: 7,
+//     fieldGoalsAttempted: 15,
+//     threePointsMade: 2,
+//     threePointsAttempted: 6,
+//     freeThrowsMade: 3,
+//     freeThrowsAttempted: 4,
+//     gameStats: [
 //       {
 //         gameDate: new Date("2025-02-02"),
 //         opponent: "Real Madrid",

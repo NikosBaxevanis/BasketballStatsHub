@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 
     // 3) Games Played (count total stat entries across all players)
     const gamesPlayedAgg = await Player.aggregate([
-      { $unwind: "$stats" },
+      { $unwind: "$gameStats" },
       { $count: "totalGames" },
     ]);
     const gamesPlayed =
@@ -22,11 +22,11 @@ router.get("/", async (req, res) => {
 
     // 4) Season Average PPG (total points ÷ total games)
     const pointsAgg = await Player.aggregate([
-      { $unwind: "$stats" },
+      { $unwind: "$gameStats" },
       {
         $group: {
           _id: null,
-          totalPoints: { $sum: "$stats.points" },
+          totalPoints: { $sum: "$gameStats.points" },
           totalGames: { $sum: 1 },
         },
       },

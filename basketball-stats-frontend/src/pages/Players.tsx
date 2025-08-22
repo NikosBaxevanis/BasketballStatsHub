@@ -1,18 +1,19 @@
 import {
   ColumnDef,
+  flexRender,
   getCoreRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { useEffect, useMemo, useState } from "react";
-import { Team, TeamsResponseType } from "../types";
-import { fetchTeams } from "../api/endpoints/teams";
+import { Player, PlayersResponseType, Team, TeamsResponseType } from "../types";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import HeaderMenu from "../components/HeaderMenu";
+import { fetchPlayers } from "../api/endpoints/players";
 import MainContent from "../components/MainContent";
 
-const Teams: React.FC = () => {
+const Players: React.FC = () => {
   const navigate = useNavigate();
   const [tableState, setTableState] = useState({
     page: 1,
@@ -24,24 +25,96 @@ const Teams: React.FC = () => {
 
   const { page, totalPages, search, sortColumn, sortOrder } = tableState;
 
-  const columns = useMemo<ColumnDef<Team>[]>(
+  const columns = useMemo<ColumnDef<Player>[]>(
     () => [
-      { accessorKey: "name", header: "Name" },
-      { accessorKey: "city", header: "City" },
-      { accessorKey: "founded", header: "Founded" },
-      { accessorKey: "championships", header: "Championships" },
-      { accessorKey: "wins", header: "Wins" },
-      { accessorKey: "defeats", header: "Defeats" },
-      { accessorKey: "homeWins", header: "Home Wins" },
-      { accessorKey: "homeDefeats", header: "Home Defeats" },
+      {
+        header: "Player",
+        accessorKey: "name",
+      },
+      {
+        header: "Team",
+        accessorFn: (row) => row?.team ?? "N/A",
+        id: "team",
+      },
+      {
+        header: "Position",
+        accessorKey: "position",
+      },
+      {
+        header: "PTS",
+        accessorKey: "points",
+      },
+      {
+        header: "AST",
+        accessorKey: "assists",
+      },
+      {
+        header: "REB",
+        accessorKey: "rebounds",
+      },
+      {
+        header: "STL",
+        accessorKey: "steals",
+      },
+      {
+        header: "BLK",
+        accessorKey: "blocks",
+      },
+      {
+        header: "TO",
+        accessorKey: "turnovers",
+      },
+      {
+        header: "MIN",
+        accessorKey: "minutesPlayed",
+      },
+      {
+        header: "FG%",
+        accessorFn: (row) =>
+          row.fieldGoalsAttempted
+            ? row.fieldGoalsMade / row.fieldGoalsAttempted // numeric value for sorting
+            : 0,
+        cell: (info) =>
+          info.getValue() !== 0
+            ? `${(info.getValue() * 100).toFixed(1)}%`
+            : "0%",
+        id: "fgPercent",
+        sortingFn: "basic", // optional, default numeric sorting
+      },
+      {
+        header: "3PT%",
+        accessorFn: (row) =>
+          row.threePointsAttempted
+            ? row.threePointsMade / row.threePointsAttempted
+            : 0,
+        cell: (info) =>
+          info.getValue() !== 0
+            ? `${(info.getValue() * 100).toFixed(1)}%`
+            : "0%",
+        id: "threePtPercent",
+        sortingFn: "basic",
+      },
+      {
+        header: "FT%",
+        accessorFn: (row) =>
+          row.freeThrowsAttempted
+            ? row.freeThrowsMade / row.freeThrowsAttempted
+            : 0,
+        cell: (info) =>
+          info.getValue() !== 0
+            ? `${(info.getValue() * 100).toFixed(1)}%`
+            : "0%",
+        id: "ftPercent",
+        sortingFn: "basic",
+      },
     ],
     []
   );
 
-  const { data: teams, isLoading } = useQuery<TeamsResponseType>({
-    queryKey: ["teams", tableState],
+  const { data: players, isLoading } = useQuery<PlayersResponseType>({
+    queryKey: ["players", tableState],
     queryFn: () =>
-      fetchTeams({
+      fetchPlayers({
         search: tableState.search,
         page: tableState.page,
         limit: 5,
@@ -51,19 +124,20 @@ const Teams: React.FC = () => {
   });
 
   useEffect(() => {
-    if (teams) {
-      setTableState((prev) => ({ ...prev, totalPages: teams.pages }));
+    if (players) {
+      setTableState((prev) => ({ ...prev, totalPages: players.pages }));
     }
-  }, [teams]);
+  }, [players]);
 
-  const teamsData = teams?.data ?? [];
+  const playersData = useMemo(() => players?.data ?? [], [players]);
 
   const table = useReactTable({
-    data: teamsData,
+    data: playersData,
     columns,
     state: {},
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    manualSorting: true, // since your sorting is server-side
   });
 
   return (
@@ -72,7 +146,7 @@ const Teams: React.FC = () => {
       <MainContent>
         <div className="flex justify-start w-full">
           <input
-            placeholder="Search teams..."
+            placeholder="Search players..."
             value={search}
             onChange={(e) =>
               setTableState((prev) => ({ ...prev, search: e.target.value }))
@@ -114,16 +188,21 @@ const Teams: React.FC = () => {
             ))}
           </thead>
           <tbody>
-            {teamsData.map((team) => (
-              <tr key={team._id}>
-                <td>{team.name}</td>
-                <td>{team.city}</td>
-                <td>{team.founded}</td>
-                <td>{team.championships}</td>
-                <td>{team.wins}</td>
-                <td>{team.defeats}</td>
-                <td>{team.homeWins}</td>
-                <td>{team.homeDefeats}</td>
+            {table.getRowModel().rows.map((row) => (
+              <tr key={row.id} className="hover:bg-gray-50">
+                {" "}
+                {row.getVisibleCells().map((cell) => (
+                  <td
+                    key={cell.id}
+                    className="px-3 py-2 border-b border-gray-200 text-sm"
+                  >
+                    {" "}
+                    {flexRender(
+                      cell.column.columnDef.cell,
+                      cell.getContext()
+                    )}{" "}
+                  </td>
+                ))}{" "}
               </tr>
             ))}
           </tbody>
@@ -176,4 +255,4 @@ const Teams: React.FC = () => {
   );
 };
 
-export default Teams;
+export default Players;

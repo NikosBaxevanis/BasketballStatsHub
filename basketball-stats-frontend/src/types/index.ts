@@ -25,12 +25,6 @@ export interface User {
   role: string;
 }
 
-export interface Player {
-  _id: string;
-  name: string;
-  team: string;
-}
-
 export interface Match {
   _id: string;
   date: string;
@@ -48,7 +42,7 @@ export interface DashboardStats {
 }
 
 export type Team = {
-  id: string;
+  _id: string;
   name: string;
   city: string;
   founded: number;
@@ -69,6 +63,51 @@ export type TeamsPayloadType = {
 
 export type TeamsResponseType = {
   data: Team[];
+  total: number;
+  page: number;
+  pages: number;
+};
+
+export type Player = {
+  _id: string;
+  name: string;
+  team:
+    | {
+        _id: string;
+        name: string;
+      }
+    | string; // if populated it's an object, else just the ObjectId
+  position?: string;
+  height?: number;
+  weight?: number;
+  points: number;
+  assists: number;
+  rebounds: number;
+  offensiveRebounds: number;
+  defensiveRebounds: number;
+  blocks: number;
+  steals: number;
+  fieldGoalsMade: number;
+  fieldGoalsAttempted: number;
+  threePointsMade: number;
+  threePointsAttempted: number;
+  freeThrowsMade: number;
+  freeThrowsAttempted: number;
+  turnovers: number;
+  personalFouls: number;
+  minutesPlayed: number;
+};
+
+export type PlayersPayloadType = {
+  search: string;
+  page: number;
+  limit: number;
+  sort: string;
+  order: string;
+};
+
+export type PlayersResponseType = {
+  data: Player[];
   total: number;
   page: number;
   pages: number;

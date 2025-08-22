@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { DashboardStats } from "../types";
 import { fetchDashboardStats } from "../api/endpoints/dashboard";
 import { useNavigate } from "react-router-dom";
+import HeaderMenu from "../components/HeaderMenu";
+import MainContent from "../components/MainContent";
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -20,27 +22,8 @@ const Dashboard: React.FC = () => {
 
   return (
     <div>
-      <div className="py-8 p-4 bg-white rounded-xl mx-4 mb-4 flex flex-col items-center justify-center gap-4 shadow-[0_1px_3px_rgba(0,0,0,0.1)] border border-slate-200">
-        <div className="text-center">
-          <h1 className="text-slate-900 text-4xl font-bold mb-2">
-            🏀 Basketball Stats Hub
-          </h1>
-          <p className="text-slate-500 text-lg">
-            Your Ultimate Basketball Statistics Dashboard
-          </p>
-        </div>
-        <nav className="flex justify-center gap-6 flex-wrap">
-          <button className="nav-btn active" onClick={() => navigate("/")}>
-            Home
-          </button>
-          <button className="nav-btn" onClick={() => navigate("/teams")}>
-            Teams
-          </button>
-          <button className="nav-btn">Players</button>
-          <button className="nav-btn">League Stats</button>
-        </nav>
-      </div>
-      <div className="py-8 p-4 bg-white rounded-xl m-4 flex flex-col items-center justify-center gap-[80px] shadow-[0_1px_3px_rgba(0,0,0,0.1)] border border-slate-200">
+      <HeaderMenu />
+      <MainContent className="gap-[80px]">
         <div className="text-center">
           <h2 className="text-slate-900 text-2xl font-bold mb-2">
             Welcome to Basketball Stats Hub
@@ -91,7 +74,7 @@ const Dashboard: React.FC = () => {
             <p>In-depth statistical analysis and performance comparisons</p>
           </div>
         </div>
-      </div>
+      </MainContent>
     </div>
   );
 };
