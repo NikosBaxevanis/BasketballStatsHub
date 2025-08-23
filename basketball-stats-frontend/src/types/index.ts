@@ -41,6 +41,15 @@ export interface DashboardStats {
   seasonAvgPPG: number;
 }
 
+export interface LeagueStatsType {
+  leagueAPG: number;
+  leaguePPG: number;
+  leagueRPG: number;
+  leagueTOPG: number;
+  leagueSPG: number;
+  leagueBPG: number;
+}
+
 export type Team = {
   _id: string;
   name: string;
@@ -111,4 +120,15 @@ export type PlayersResponseType = {
   total: number;
   page: number;
   pages: number;
+};
+
+export type LeagueLeaderType = { leader: string; value: number; team: string };
+
+export type LeagueLeadersResponseType = {
+  PPG: LeagueLeaderType;
+  RPG: LeagueLeaderType;
+  APG: LeagueLeaderType;
+  FGPercent: LeagueLeaderType;
+  ThreePtPercent: LeagueLeaderType;
+  FTPercent: LeagueLeaderType;
 };

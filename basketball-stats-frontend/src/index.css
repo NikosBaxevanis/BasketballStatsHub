@@ -28,35 +28,6 @@ body {
   border-color: #3b82f6;
 }
 
-.stat-card {
-  background: #f1f5f9;
-  color: #334155;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  border: 1px solid #e2e8f0;
-  transition: transform 0.2s ease;
-}
-
-.stat-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.stat-card h3,
-.feature-card h3 {
-  font-size: 0.875rem;
-  margin-bottom: 8px;
-  color: #64748b;
-  font-weight: 500;
-}
-
-.stat-card .number {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #1e293b;
-}
-
 .feature-icon {
   width: 48px;
   height: 48px;

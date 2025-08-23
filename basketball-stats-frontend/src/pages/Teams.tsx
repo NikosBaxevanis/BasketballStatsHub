@@ -38,7 +38,12 @@ const Teams: React.FC = () => {
     []
   );
 
-  const { data: teams, isLoading } = useQuery<TeamsResponseType>({
+  const {
+    data: teams,
+    isLoading,
+    isError,
+    error,
+  } = useQuery<TeamsResponseType>({
     queryKey: ["teams", tableState],
     queryFn: () =>
       fetchTeams({
@@ -66,11 +71,25 @@ const Teams: React.FC = () => {
     getSortedRowModel: getSortedRowModel(),
   });
 
+  if (isLoading) return <p>Loading teams...</p>;
+  if (isError)
+    return <p>{(error as any)?.message || "Failed to load teams"}</p>;
+
   return (
     <div>
       <HeaderMenu />
       <MainContent>
-        <div className="flex justify-start w-full">
+        <div className="text-center">
+          <h2 className="text-slate-900 text-2xl font-bold mb-2">
+            EuroLeague Teams Overview
+          </h2>
+          <p className="text-slate-500 text-lg px-4">
+            Explore all EuroLeague teams, their cities, founding years,
+            championships, and season performance. Compare wins, defeats, and
+            home records to see how each team stacks up in the league standings.
+          </p>
+        </div>
+        <div className="flex justify-start w-full mt-4">
           <input
             placeholder="Search teams..."
             value={search}

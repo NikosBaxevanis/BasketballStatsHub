@@ -5,6 +5,8 @@ import { fetchDashboardStats } from "../api/endpoints/dashboard";
 import { useNavigate } from "react-router-dom";
 import HeaderMenu from "../components/HeaderMenu";
 import MainContent from "../components/MainContent";
+import StatCard from "../components/StatCard";
+import FeatureCard from "../components/FearureCard";
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -19,6 +21,32 @@ const Dashboard: React.FC = () => {
     return <p>{(error as any)?.message || "Failed to load dashboard"}</p>;
 
   const { activePlayers, seasonAvgPPG, gamesPlayed, totalTeams } = data ?? {};
+
+  const stats = [
+    { text: "Total Teams", value: totalTeams },
+    { text: "Active Players", value: activePlayers },
+    { text: "Games Played", value: gamesPlayed },
+    { text: "Season Average PPG", value: seasonAvgPPG },
+  ];
+
+  const features = [
+    {
+      icon: "🏆",
+      text: "Team Management",
+      value: "Comprehensive team statistics, records, and performance metrics",
+    },
+    {
+      icon: "👤",
+      text: "Player Profiles",
+      value:
+        "Detailed player statistics, career highlights, and performance data",
+    },
+    {
+      icon: "📊",
+      text: "Advanced Analytics",
+      value: "In-depth statistical analysis and performance comparisons",
+    },
+  ];
 
   return (
     <div>
@@ -35,44 +63,24 @@ const Dashboard: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5 w-full">
-          <div className="stat-card">
-            <h3>Total Teams</h3>
-            <div className="number">{totalTeams}</div>
-          </div>
-          <div className="stat-card">
-            <h3>Active Players</h3>
-            <div className="number">{activePlayers}</div>
-          </div>
-          <div className="stat-card">
-            <h3>Games Played</h3>
-            <div className="number">{gamesPlayed}</div>
-          </div>
-          <div className="stat-card">
-            <h3>Season Average PPG</h3>
-            <div className="number">{seasonAvgPPG}</div>
-          </div>
+          {stats.map((stat) => {
+            const { text, value } = stat;
+            return (
+              <StatCard
+                key={text}
+                text={text}
+                value={value?.toString() ?? ""}
+              />
+            );
+          })}
         </div>
         <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-5 text-center">
-          <div className="feature-card">
-            <div className="feature-icon">🏆</div>
-            <h3>Team Management</h3>
-            <p>
-              Comprehensive team statistics, records, and performance metrics
-            </p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon">👤</div>
-            <h3>Player Profiles</h3>
-            <p>
-              Detailed player statistics, career highlights, and performance
-              data
-            </p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon">📊</div>
-            <h3>Advanced Analytics</h3>
-            <p>In-depth statistical analysis and performance comparisons</p>
-          </div>
+          {features.map((feature) => {
+            const { text, value, icon } = feature;
+            return (
+              <FeatureCard key={text} text={text} value={value} icon={icon} />
+            );
+          })}
         </div>
       </MainContent>
     </div>

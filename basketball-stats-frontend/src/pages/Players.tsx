@@ -8,13 +8,11 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import { Player, PlayersResponseType, Team, TeamsResponseType } from "../types";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 import HeaderMenu from "../components/HeaderMenu";
 import { fetchPlayers } from "../api/endpoints/players";
 import MainContent from "../components/MainContent";
 
 const Players: React.FC = () => {
-  const navigate = useNavigate();
   const [tableState, setTableState] = useState({
     page: 1,
     totalPages: 1,
@@ -111,7 +109,12 @@ const Players: React.FC = () => {
     []
   );
 
-  const { data: players, isLoading } = useQuery<PlayersResponseType>({
+  const {
+    data: players,
+    isLoading,
+    isError,
+    error,
+  } = useQuery<PlayersResponseType>({
     queryKey: ["players", tableState],
     queryFn: () =>
       fetchPlayers({
@@ -140,11 +143,26 @@ const Players: React.FC = () => {
     manualSorting: true, // since your sorting is server-side
   });
 
+  if (isLoading) return <p>Loading players...</p>;
+  if (isError)
+    return <p>{(error as any)?.message || "Failed to load players"}</p>;
+
   return (
     <div>
       <HeaderMenu />
       <MainContent>
-        <div className="flex justify-start w-full">
+        <div className="text-center">
+          <h2 className="text-slate-900 text-2xl font-bold mb-2">
+            EuroLeague Player Statistics
+          </h2>
+          <p className="text-slate-500 text-lg px-4">
+            Browse all players in the EuroLeague and track their season
+            performance. Compare points, assists, rebounds, steals, blocks,
+            turnovers, minutes played, and shooting efficiency (FG%, 3PT%, FT%)
+            to see who leads the league in every category.
+          </p>
+        </div>
+        <div className="flex justify-start w-full mt-4">
           <input
             placeholder="Search players..."
             value={search}

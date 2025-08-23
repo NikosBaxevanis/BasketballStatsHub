@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import NavButton from "./NavButton";
 
 const HeaderMenu: React.FC = () => {
   const navigate = useNavigate();
@@ -18,31 +19,26 @@ const HeaderMenu: React.FC = () => {
         </p>
       </div>
       <nav className="flex justify-center gap-6 flex-wrap">
-        <button
-          className={`nav-btn ${firstSegment === "dashboard" ? "active" : ""}`}
-          onClick={() => navigate("/")}
-        >
-          Home
-        </button>
-        <button
-          className={`nav-btn  ${firstSegment === "teams" ? "active" : ""}`}
-          onClick={() => navigate("/teams")}
-        >
-          Teams
-        </button>
-        <button
-          className={`nav-btn  ${firstSegment === "players" ? "active" : ""}`}
-          onClick={() => navigate("/players")}
-        >
-          Players
-        </button>
-        <button
-          className={`nav-btn  ${
-            firstSegment === "league-stats" ? "active" : ""
-          }`}
-        >
-          League Stats
-        </button>
+        <NavButton
+          isActive={firstSegment === "dashboard"}
+          text={"Home"}
+          url="/"
+        />
+        <NavButton
+          isActive={firstSegment === "teams"}
+          text={"Teams"}
+          url="/teams"
+        />
+        <NavButton
+          isActive={firstSegment === "players"}
+          text={"Players"}
+          url="/players"
+        />
+        <NavButton
+          isActive={firstSegment === "league-stats"}
+          text={"League Stats"}
+          url="/league-stats"
+        />
       </nav>
     </div>
   );

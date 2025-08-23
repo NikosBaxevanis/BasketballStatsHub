@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Teams from "./pages/Teams";
 import Players from "./pages/Players";
+import LeagueStats from "./pages/LeagueStats";
 
 const PrivateRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
   const { user } = useContext(UserContext);
@@ -52,6 +53,14 @@ const App: React.FC = () => {
               element={
                 <PrivateRoute>
                   <Players />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/league-stats"
+              element={
+                <PrivateRoute>
+                  <LeagueStats />
                 </PrivateRoute>
               }
             />
