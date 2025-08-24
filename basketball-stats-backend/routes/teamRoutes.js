@@ -6,14 +6,27 @@ const router = express.Router();
 // 📌 Δημιουργία νέας ομάδας
 router.post("/", async (req, res) => {
   try {
-    const { name, city, founded, championships } = req.body;
+    const {
+      name,
+      city,
+      founded,
+      championships,
+      wins,
+      defeats,
+      homeWins,
+      homeDefeats,
+    } = req.body;
 
     const team = new Team({
       name,
       city,
       founded,
       championships,
-      players: [], // ξεκινάει χωρίς παίκτες
+      wins: wins,
+      defeats: defeats,
+      homeWins: homeWins,
+      homeDefeats: homeDefeats,
+      players: [],
     });
 
     await team.save();

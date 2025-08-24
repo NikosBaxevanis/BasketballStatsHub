@@ -1,4 +1,4 @@
-import { PlayersPayloadType, PlayersResponseType } from "../../types";
+import { Player, PlayersPayloadType, PlayersResponseType } from "../../types";
 import { axiosInstance } from "../axiosInstance";
 
 export const fetchPlayers = async ({
@@ -18,4 +18,9 @@ export const fetchPlayers = async ({
     },
   });
   return res.data;
+};
+
+export const createPlayer = async (player: Player) => {
+  const { data } = await axiosInstance.post("/api/players", player);
+  return data;
 };

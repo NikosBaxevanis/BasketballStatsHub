@@ -1,10 +1,5 @@
 import React, { createContext, useState, ReactNode, useEffect } from "react";
-
-interface User {
-  email: string;
-  role?: string;
-  // μπορείς να προσθέσεις ό,τι πεδία χρειάζεσαι από τον χρήστη
-}
+import { User } from "./types";
 
 interface UserContextType {
   user: User | null;

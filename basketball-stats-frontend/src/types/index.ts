@@ -21,6 +21,7 @@ export type RegisterResponseType = {
 
 export interface User {
   id: string;
+  username?: string;
   email: string;
   role: string;
 }
@@ -51,7 +52,7 @@ export interface LeagueStatsType {
 }
 
 export type Team = {
-  _id: string;
+  _id?: string;
   name: string;
   city: string;
   founded: number;
@@ -78,7 +79,7 @@ export type TeamsResponseType = {
 };
 
 export type Player = {
-  _id: string;
+  _id?: string;
   name: string;
   team:
     | {

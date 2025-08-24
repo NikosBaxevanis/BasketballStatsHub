@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
   LeagueLeadersResponseType,
@@ -20,6 +20,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import Loader from "../components/Loader";
+import toast from "react-hot-toast";
 
 const statsIndex = [
   "Points per Game (PPG)",
@@ -92,66 +94,77 @@ const LeagueStats: React.FC = () => {
     getSortedRowModel: getSortedRowModel(),
   });
 
-  if (isLoading || isLoadingLeaders) return <p>Loading league stats...</p>;
-  if (isError)
-    return <p>{(error as any)?.message || "Failed to load league stats"}</p>;
+  useEffect(() => {
+    if (isError) {
+      toast.error((error as any)?.message || "Failed to load teams");
+    }
+  }, [isError, error]);
 
   return (
     <div>
       <HeaderMenu />
       <MainContent className="gap-8">
-        <div className="text-center">
-          <h2 className="text-slate-900 text-2xl font-bold mb-2">
-            Euroleague Basketball Stats & Leaders
-          </h2>
-          <p className="text-slate-500 text-lg">
-            Discover the league’s averages, top performers, and key metrics
-            across points, assists, rebounds, shooting efficiency, steals, and
-            blocks.
-          </p>
-        </div>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5 w-full">
-          {stats.map((stat) => {
-            const { text, value } = stat;
-            return (
-              <StatCard
-                key={text}
-                text={text}
-                value={value?.toFixed(1).toString() ?? ""}
-              />
-            );
-          })}
-        </div>
+        {isLoading || isLoadingLeaders ? (
+          <Loader />
+        ) : (
+          <>
+            <div className="text-center">
+              <h2 className="text-slate-900 text-2xl font-bold mb-2">
+                Euroleague Basketball Stats & Leaders
+              </h2>
+              <p className="text-slate-500 text-lg">
+                Discover the league’s averages, top performers, and key metrics
+                across points, assists, rebounds, shooting efficiency, steals,
+                and blocks.
+              </p>
+            </div>
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5 w-full">
+              {stats.map((stat) => {
+                const { text, value } = stat;
+                return (
+                  <StatCard
+                    key={text}
+                    text={text}
+                    value={value?.toFixed(1).toString() ?? ""}
+                  />
+                );
+              })}
+            </div>
 
-        <table>
-          <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th key={header.id}>
-                    {header.isPlaceholder ? null : (
-                      <>{header.column.columnDef.header}</>
-                    )}
-                  </th>
+            <table>
+              <thead>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <tr key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <th key={header.id}>
+                        {header.isPlaceholder ? null : (
+                          <>{header.column.columnDef.header}</>
+                        )}
+                      </th>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="hover:bg-gray-50">
-                {row.getVisibleCells().map((cell) => (
-                  <td
-                    key={cell.id}
-                    className="px-3 py-2 border-b border-gray-200 text-sm"
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
+              </thead>
+              <tbody>
+                {table.getRowModel().rows.map((row) => (
+                  <tr key={row.id} className="hover:bg-gray-50">
+                    {row.getVisibleCells().map((cell) => (
+                      <td
+                        key={cell.id}
+                        className="px-3 py-2 border-b border-gray-200 text-sm"
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </td>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+              </tbody>
+            </table>
+          </>
+        )}
       </MainContent>
     </div>
   );

@@ -6,12 +6,22 @@ const router = express.Router();
 // 📌 Δημιουργία παίκτη + σύνδεση με ομάδα
 router.post("/", async (req, res) => {
   try {
-    const { name, teamId, position, height, weight, gameStats } = req.body;
+    const { name, team, position, height, weight, gameStats } = req.body;
+
+    let teamObject = null;
+
+    // if a teamName is provided, look it up in the DB
+    if (team) {
+      teamObject = await Team.findOne({ name: team });
+      if (!team) {
+        return res.status(404).json({ message: `Team '${team}' not found` });
+      }
+    }
 
     // Δημιουργούμε τον παίκτη
     const player = new Player({
       name,
-      team: teamId || null,
+      team: teamObject._id || null,
       position,
       height,
       weight,
@@ -21,8 +31,8 @@ router.post("/", async (req, res) => {
     await player.save();
 
     // Αν δόθηκε teamId, προσθέτουμε τον παίκτη στην ομάδα
-    if (teamId) {
-      await Team.findByIdAndUpdate(teamId, {
+    if (teamObject._id) {
+      await Team.findByIdAndUpdate(teamObject._id, {
         $push: { players: player._id },
       });
     }

@@ -19,3 +19,8 @@ export const fetchTeams = async ({
   });
   return res.data;
 };
+
+export const createTeam = async (team: Team) => {
+  const { data } = await axiosInstance.post("/api/teams", team);
+  return data;
+};
