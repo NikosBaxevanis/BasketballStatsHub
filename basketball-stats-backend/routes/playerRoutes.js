@@ -6,15 +6,46 @@ const router = express.Router();
 // 📌 Δημιουργία παίκτη + σύνδεση με ομάδα
 router.post("/", async (req, res) => {
   try {
-    const { name, team, position, height, weight, gameStats } = req.body;
+    const {
+      name,
+      team,
+      position,
+      height,
+      weight,
+      gameStats,
+      points,
+      assists,
+      rebounds,
+      offensiveRebounds,
+      defensiveRebounds,
+      blocks,
+      steals,
+      fieldGoalsMade,
+      fieldGoalsAttempted,
+      threePointsMade,
+      threePointsAttempted,
+      freeThrowsMade,
+      freeThrowsAttempted,
+      turnovers,
+      personalFouls,
+      minutesPlayed,
+    } = req.body;
 
     let teamObject = null;
 
-    // if a teamName is provided, look it up in the DB
     if (team) {
-      teamObject = await Team.findOne({ name: team });
-      if (!team) {
-        return res.status(404).json({ message: `Team '${team}' not found` });
+      // trim whitespace from the input
+      const cleanTeam = team.trim();
+
+      // case-insensitive regex match
+      teamObject = await Team.findOne({
+        name: { $regex: `^${cleanTeam}$`, $options: "i" },
+      });
+
+      if (!teamObject) {
+        return res
+          .status(404)
+          .json({ message: `Team '${cleanTeam}' not found` });
       }
     }
 
@@ -26,6 +57,22 @@ router.post("/", async (req, res) => {
       height,
       weight,
       gameStats: gameStats || [],
+      points,
+      assists,
+      rebounds,
+      offensiveRebounds,
+      defensiveRebounds,
+      blocks,
+      steals,
+      fieldGoalsMade,
+      fieldGoalsAttempted,
+      threePointsMade,
+      threePointsAttempted,
+      freeThrowsMade,
+      freeThrowsAttempted,
+      turnovers,
+      personalFouls,
+      minutesPlayed,
     });
 
     await player.save();
