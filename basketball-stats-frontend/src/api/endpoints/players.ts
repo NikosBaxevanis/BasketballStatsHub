@@ -8,7 +8,7 @@ export const fetchPlayers = async ({
   sort,
   order,
 }: PlayersPayloadType): Promise<PlayersResponseType> => {
-  const res = await axiosInstance.get("/api/players", {
+  const res = await axiosInstance.get("/players", {
     params: {
       search,
       page,
@@ -21,6 +21,6 @@ export const fetchPlayers = async ({
 };
 
 export const createPlayer = async (player: Player) => {
-  const { data } = await axiosInstance.post("/api/players", player);
+  const { data } = await axiosInstance.post("/players", player);
   return data;
 };

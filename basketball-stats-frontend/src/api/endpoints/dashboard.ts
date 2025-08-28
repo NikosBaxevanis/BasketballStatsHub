@@ -1,18 +1,18 @@
-import { DashboardStats, LeagueStatsType } from "../../types";
+import { DashboardStats, LeagueLeadersResponseType, LeagueStatsType } from "../../types";
 import { axiosInstance } from "../axiosInstance";
 
 export const fetchDashboardStats = async (): Promise<DashboardStats> => {
-  const res = await axiosInstance.get("/api/dashboard");
+  const res = await axiosInstance.get("/dashboard");
   return res.data;
 };
 
 export const fetchLeagueStats = async (): Promise<LeagueStatsType> => {
-  const res = await axiosInstance.get("/api/dashboard/league-stats");
+  const res = await axiosInstance.get("/dashboard/league-stats");
   return res.data;
 };
 
 export const fetchLeagueLeaders =
   async (): Promise<LeagueLeadersResponseType> => {
-    const res = await axiosInstance.get("/api/dashboard/leaders");
+    const res = await axiosInstance.get("/dashboard/leaders");
     return res.data;
   };

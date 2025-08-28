@@ -10,7 +10,7 @@ export const loginUser = async ({
   username,
   password,
 }: LoginRequestType): Promise<LoginResponseType> => {
-  const res = await axiosInstance.post("/api/auth/login", {
+  const res = await axiosInstance.post("/auth/login", {
     username,
     password,
   });
@@ -22,7 +22,7 @@ export const registerUser = async ({
   password,
   role,
 }: RegisterRequestType): Promise<RegisterResponseType> => {
-  const res = await axiosInstance.post("/api/auth/register", {
+  const res = await axiosInstance.post("/auth/register", {
     username,
     password,
     role,

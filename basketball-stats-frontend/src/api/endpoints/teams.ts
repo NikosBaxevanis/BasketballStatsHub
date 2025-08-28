@@ -8,7 +8,7 @@ export const fetchTeams = async ({
   sort,
   order,
 }: TeamsPayloadType): Promise<TeamsResponseType> => {
-  const res = await axiosInstance.get("/api/teams", {
+  const res = await axiosInstance.get("/teams", {
     params: {
       search,
       page,
@@ -21,6 +21,6 @@ export const fetchTeams = async ({
 };
 
 export const createTeam = async (team: Team) => {
-  const { data } = await axiosInstance.post("/api/teams", team);
+  const { data } = await axiosInstance.post("/teams", team);
   return data;
 };
