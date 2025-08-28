@@ -78,7 +78,7 @@ const Players: React.FC = () => {
             : 0,
         cell: (info) =>
           info.getValue() !== 0
-            ? `${(info.getValue() * 100).toFixed(1)}%`
+            ? `${(info.getValue() as number * 100).toFixed(1)}%`
             : "0%",
         id: "fgPercent",
         sortingFn: "basic", // optional, default numeric sorting
@@ -91,7 +91,7 @@ const Players: React.FC = () => {
             : 0,
         cell: (info) =>
           info.getValue() !== 0
-            ? `${(info.getValue() * 100).toFixed(1)}%`
+            ? `${(info.getValue() as number * 100).toFixed(1)}%`
             : "0%",
         id: "threePtPercent",
         sortingFn: "basic",
@@ -104,7 +104,7 @@ const Players: React.FC = () => {
             : 0,
         cell: (info) =>
           info.getValue() !== 0
-            ? `${(info.getValue() * 100).toFixed(1)}%`
+            ? `${(info.getValue() as number * 100).toFixed(1)}%`
             : "0%",
         id: "ftPercent",
         sortingFn: "basic",
